@@ -1,25 +1,86 @@
 {
-  "name": "chakra-react-datepicker",
+  "name": "@yamatomo/chakra-react-datepicker",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Integration of chakra-ui and react-datepicker",
+  "author": "Yama-Tomo <yam4.tomo@gmail.com>",
+  "homepage": "https://github.com/Yama-Tomo/chakra-react-datepicker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yama-Tomo/chakra-react-datepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yama-Tomo/chakra-react-datepicker/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "chakra",
+    "chakra-ui",
+    "react-datepicker",
+    "datepicker",
+    "timepicker",
+    "calendar",
+    "typescript",
+    "react"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:vrt": "percy storybook http://localhost:6006",
+    "build": "rm -rf dist && FORCE_COLOR=true run-p -l -c build:*",
+    "build:esm": "tsc -p ./tsconfig.build.json -t esnext -m esnext --outDir dist/esm",
+    "build:cjs": "tsc -p ./tsconfig.build.json -d --outDir dist/cjs",
+    "lint": "FORCE_COLOR=true run-p -l -c lint:*",
+    "lint:eslint": "eslint './**/*.{js,ts,tsx}' --format codeframe --color --max-warnings=0",
+    "lint:type": "tsc --pretty",
+    "lint:format": "prettier -c './**/*.{js,ts,tsx}'",
+    "format": "prettier -w './**/*.{js,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.6",
+    "@emotion/react": "^11.8.2",
+    "@percy/cli": "^1.0.0-beta.76",
+    "@percy/storybook": "^4.1.0",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-interactions": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
     "babel-loader": "^8.2.3",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-formatter-codeframe": "^7.32.1",
+    "eslint-plugin-react": "^7.29.3",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "framer-motion": "^6.2.8",
+    "mockdate": "^3.0.5",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "qs": "^6.10.3",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-docgen-typescript": "^2.2.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "typescript": "^4.6.2"
+  },
+  "optionalDependencies": {
+    "@types/react-datepicker": "^4.3.4",
+    "typescript": ">=4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-datepicker": "^4.7.0",
+    "@chakra-ui/react": "^1.8.6"
   }
 }
