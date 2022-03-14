@@ -259,6 +259,7 @@ const DatePicker = <
       h: navigationButton.size,
       top: header.topSpace,
       marginTop: datepickerSize !== 'xs' ? -1 : undefined,
+      color: 'transparent',
       _hover: {
         '.react-datepicker__navigation-icon::before': {
           borderColor: navigationButton.hover.color,
@@ -275,7 +276,6 @@ const DatePicker = <
         _before: {
           left: 'unset',
           top: 'unset',
-          position: 'unset',
           right: 'unset',
           bottom: 'unset',
           borderColor: navigationButton.color,
