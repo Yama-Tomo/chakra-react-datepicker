@@ -1,0 +1,27 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+    - main
+
+env:
+  CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cypress
+  PERCY_POSTINSTALL_BROWSER: true
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/setup_node
+    - run: pnpm lint
+  visual-regression-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/setup_node
+    - run: |
+        pnpm build-storybook
+        pnpm percy storybook ./storybook-static
