@@ -29,6 +29,7 @@ specifiers:
   prettier: ^2.5.1
   qs: ^6.10.3
   react: ^17.0.2
+  react-datepicker: ^4.7.0
   react-docgen-typescript: ^2.2.2
   react-dom: ^17.0.2
   react-icons: ^4.3.1
@@ -66,6 +67,7 @@ devDependencies:
   prettier: 2.5.1
   qs: 6.10.3
   react: 17.0.2
+  react-datepicker: 4.7.0_react-dom@17.0.2+react@17.0.2
   react-docgen-typescript: 2.2.2_typescript@4.6.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
@@ -5952,6 +5954,10 @@ packages:
       static-extend: 0.1.2
     dev: true
 
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: true
+
   /clean-css/4.2.4:
     resolution: {integrity: sha512-EJUDT7nDVFDvaQgAo2G/PJvxmp1o/c6iXLbswsBbUFXi1Nr+AjA2cKmfbKDMjMvzEe75g3P6JkaDDAKk96A85A==}
     engines: {node: '>= 4.0'}
@@ -6385,8 +6391,6 @@ packages:
   /date-fns/2.28.0:
     resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
     engines: {node: '>=0.11'}
-    dev: false
-    optional: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -10273,6 +10277,22 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: true
 
+  /react-datepicker/4.7.0_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-FS8KgbwqpxmJBv/bUdA42MYqYZa+fEYcpc746DZiHvVE2nhjrW/dg7c5B5fIUuI8gZET6FOzuDgezNcj568Czw==}
+    peerDependencies:
+      react: ^16.9.0 || ^17
+      react-dom: ^16.9.0 || ^17
+    dependencies:
+      '@popperjs/core': 2.11.2
+      classnames: 2.3.1
+      date-fns: 2.28.0
+      prop-types: 15.8.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-onclickoutside: 6.12.1_react-dom@17.0.2+react@17.0.2
+      react-popper: 2.2.5_4d48938cec404f33c7375aa6b453941c
+    dev: true
+
   /react-docgen-typescript/2.2.2_typescript@4.6.2:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
     peerDependencies:
@@ -10395,6 +10415,16 @@ packages:
 
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
+    dev: true
+
+  /react-onclickoutside/6.12.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-a5Q7CkWznBRUWPmocCvE8b6lEYw1s6+opp/60dCunhO+G6E4tDTO2Sd2jKE+leEnnrLAE2Wj5DlDHNqj5wPv1Q==}
+    peerDependencies:
+      react: ^15.5.x || ^16.x || ^17.x
+      react-dom: ^15.5.x || ^16.x || ^17.x
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: true
 
   /react-popper-tooltip/3.1.1_react-dom@17.0.2+react@17.0.2:
