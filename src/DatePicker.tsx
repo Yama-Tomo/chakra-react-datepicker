@@ -423,7 +423,7 @@ const DatePicker = <
   };
 
   return (
-    <Box sx={sx} w={'100%'} {...rootProps}>
+    <Box sx={sx} w={'100%'} lineHeight={'normal'} {...rootProps}>
       <ReactDatePicker
         {...datePickerProps}
         customInput={datePickerProps.customInput || <CustomInput {...normalizedInputProps} />}
