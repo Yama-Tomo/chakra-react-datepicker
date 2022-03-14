@@ -96,6 +96,11 @@ type Story = ComponentStoryObj<typeof OriginalDatePicker>;
 const baseStory: Story = {
   render: DatePicker,
   args: argsFromQs,
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export const BasicUsage: Story = {
@@ -120,11 +125,6 @@ export const WithRootProps: Story = {
     },
     ...baseStory.args,
   },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-    },
-  },
 };
 
 export const WithDatePickerSize: Story = {
@@ -136,13 +136,6 @@ export const WithDatePickerSize: Story = {
   parameters: {
     percy: {
       ...percyArgs({}),
-      additionalSnapshots: [
-        ...['sm', 'md', 'xl']
-          .map((datePickerSize) => [
-            { suffix: `:light-${datePickerSize}`, ...percyArgs({ datePickerSize }) },
-          ])
-          .flat(),
-      ],
     },
   },
 };
@@ -160,12 +153,6 @@ export const WithDatePickerColorScheme: Story = {
   args: {
     datePickerColorSchema: 'red',
     ...baseStory.args,
-  },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
   },
 };
 
@@ -192,15 +179,10 @@ export const WithExtendDatePickerTheme: Story = {
     },
     ...baseStory.args,
   },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
-  },
 };
 
 export const WithPopoverPlacement: Story = {
+  ...baseStory,
   render: (props) => (
     <>
       <div style={{ height: '300px' }} />
@@ -213,12 +195,6 @@ export const WithPopoverPlacement: Story = {
     rootProps: { w: 500 },
     popperPlacement: 'top-end',
     ...baseStory.args,
-  },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
   },
 };
 
@@ -236,17 +212,6 @@ export const WithClearButton: Story = {
     isClearable: true,
     ...baseStory.args,
   },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [
-        { ...percyArgs({}, true) },
-        ...['xs', 'sm', 'lg']
-          .map((size) => [{ suffix: `:light-${size}`, ...percyArgs({ inputProps: { size } }) }])
-          .flat(),
-      ],
-    },
-  },
 };
 
 export const WithTimeSelect: Story = {
@@ -255,12 +220,6 @@ export const WithTimeSelect: Story = {
     showTimeSelect: true,
     dateFormat: 'MM/dd/yyyy h:mm aa',
     ...baseStory.args,
-  },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
   },
 };
 
@@ -272,12 +231,6 @@ export const WithTimeInput: Story = {
     dateFormat: 'MM/dd/yyyy h:mm aa',
     ...baseStory.args,
   },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
-  },
 };
 
 export const WithYearAndMonthPicker: Story = {
@@ -286,12 +239,6 @@ export const WithYearAndMonthPicker: Story = {
     ...baseStory.args,
     showMonthDropdown: true,
     showYearDropdown: true,
-  },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-      additionalSnapshots: [{ ...percyArgs({}, true) }],
-    },
   },
 };
 
@@ -321,11 +268,6 @@ export const ExcludeDays: Story = {
     excludeDates: [addDays(1), addDays(2), addDays(3)],
     ...baseStory.args,
   },
-  parameters: {
-    percy: {
-      ...percyArgs({}),
-    },
-  },
 };
 
 export const RangeDays: Story = {
@@ -352,6 +294,7 @@ export const Invalid: Story = {
 };
 
 export const InvalidWithFormControl: Story = {
+  ...baseStory,
   render: (props) => (
     <FormControl isInvalid isRequired>
       <FormLabel htmlFor="date">date</FormLabel>
@@ -359,27 +302,76 @@ export const InvalidWithFormControl: Story = {
       <FormErrorMessage>example error message.</FormErrorMessage>
     </FormControl>
   ),
-  args: {
-    ...baseStory.args,
-  },
 };
 
 export const WithLeftIcons: Story = {
+  ...baseStory,
   render: (props) => (
     <Stack spacing={'400px'}>
       <InputGroup>
         <InputLeftElement pointerEvents="none">
           <CalendarIcon color="gray.300" />
         </InputLeftElement>
-        <DatePicker inputProps={{ paddingInlineStart: 10 }} isClearable {...props} />
+        <DatePicker inputProps={{ paddingInlineStart: 10 }} {...props} />
       </InputGroup>
       <InputGroup>
         <InputLeftAddon>
           <CalendarIcon />
         </InputLeftAddon>
         <DatePicker
-          inputProps={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-          popperPlacement={'bottom-end'}
+          inputProps={{
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+          }}
+          popperPlacement={'top-end'}
+          {...props}
+        />
+      </InputGroup>
+      <div />
+    </Stack>
+  ),
+};
+
+export const PassVariousProps: Story = {
+  ...baseStory,
+  render: (props) => (
+    <Stack spacing={'490px'}>
+      <InputGroup>
+        <InputLeftElement pointerEvents="none">
+          <CalendarIcon color="gray.300" />
+        </InputLeftElement>
+        <DatePicker
+          inputProps={{ paddingInlineStart: 10 }}
+          showTimeInput
+          customTimeInput={<Input type={'time'} />}
+          rootProps={{
+            w: '300px',
+          }}
+          {...props}
+        />
+      </InputGroup>
+      <InputGroup size={'xs'}>
+        <InputLeftAddon>
+          <CalendarIcon />
+        </InputLeftAddon>
+        <DatePicker
+          inputProps={{
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+            size: 'xs',
+          }}
+          datePickerColorSchema={'red'}
+          showMonthDropdown
+          showYearDropdown
+          showTimeSelect
+          extendDatePickerTheme={(colorMode, theme) => {
+            if (colorMode === 'light') {
+              return { ...theme, header: 'teal.400', outsideDay: 'red.400' };
+            }
+
+            return { ...theme, header: 'teal.600', outsideDay: 'red.600' };
+          }}
+          popperPlacement={'top-end'}
           {...props}
         />
       </InputGroup>
@@ -388,7 +380,6 @@ export const WithLeftIcons: Story = {
   ),
   args: {
     selectsRange: true,
-    showTimeSelect: true,
     isClearable: true,
     excludeDates: [addDays(1), addDays(2), addDays(3)],
     dateFormat: 'MM/dd/yyyy h:mm aa',
@@ -397,6 +388,7 @@ export const WithLeftIcons: Story = {
   parameters: {
     percy: {
       ...percyArgs({}),
+      additionalSnapshots: [{ ...percyArgs({}, true) }],
     },
   },
 };
