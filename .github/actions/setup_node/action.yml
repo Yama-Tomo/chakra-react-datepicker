@@ -9,9 +9,9 @@ runs:
       path: |
         node_modules
         */*/node_modules
-      key: node_modules-${{ runner.os }}@220314-{{ hashFiles('**/pnpm-lock.yaml') }}
+      key: node_modules-${{ runner.os }}@220314-2-{{ hashFiles('**/pnpm-lock.yaml') }}
       restore-keys: |
-        node_modules-${{ runner.os }}@220314-
+        node_modules-${{ runner.os }}@220314-2-
   - uses: actions/setup-node@v2
     with:
       node-version: 16
