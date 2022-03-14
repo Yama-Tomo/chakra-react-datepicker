@@ -302,6 +302,8 @@ const DatePicker = <
     },
     '.react-datepicker__month': {
       ...dayContainer,
+      borderBottomRightRadius: 'md',
+      borderBottomLeftRadius: 'md',
       '.react-datepicker__day': {
         w: day.width,
         lineHeight: day.lineHeight,
