@@ -68,8 +68,8 @@ const WithBasicProps = (mockToday: string, opts?: { initialStartDate?: Date }) =
     );
   };
 
-const DatePicker = WithBasicProps('2022-03-09 01:00:00', {
-  initialStartDate: new Date('2022-03-08 10:00:00'),
+const DatePicker = WithBasicProps('2022/03/09 01:00:00', {
+  initialStartDate: new Date('2022/03/08 10:00:00'),
 });
 const argsFromQs = (() => {
   const params = qs.parse(window.location.search, { ignoreQueryPrefix: true });
@@ -256,7 +256,7 @@ export const WithPortal: Story = {
 };
 
 const addDays = (add: number) => {
-  mockdate.set('2022-03-09');
+  mockdate.set('2022/03/09');
   const today = new Date();
   today.setDate(today.getDate() + add);
   return today;
