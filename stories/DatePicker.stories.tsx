@@ -14,6 +14,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import mockdate from 'mockdate';
 import qs from 'qs';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { DatePicker as OriginalDatePicker } from '../src';
@@ -42,19 +43,34 @@ type OmittedProps = Omit<
 const WithBasicProps = (mockToday: string, opts?: { initialStartDate?: Date }) =>
   function DatePickerWithBasicProps(props: OmittedProps) {
     mockdate.set(mockToday);
+    const [tick, setTick] = useState(0);
     const [startDate, endDate, onChange] = useBasicPropsProvide(opts);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setTick((v) => v + 1);
+      }, 1500);
+    }, []);
+
     return (
-      <OriginalDatePicker
-        {...props}
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={onChange}
-      />
+      <>
+        {tick > 0 && (
+          <div className={'delayed-take-percy-screenshot'} style={{ height: 0, width: 0 }} />
+        )}
+        <OriginalDatePicker
+          {...props}
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={onChange}
+        />
+      </>
     );
   };
 
-const DatePicker = WithBasicProps('2022-03-09', { initialStartDate: new Date('2022-03-08') });
+const DatePicker = WithBasicProps('2022-03-09 01:00:00', {
+  initialStartDate: new Date('2022-03-08 10:00:00'),
+});
 const argsFromQs = (() => {
   const params = qs.parse(window.location.search, { ignoreQueryPrefix: true });
 
@@ -68,7 +84,7 @@ const argsFromQs = (() => {
 const percyArgs = (args: Record<string, unknown>, isDarkMode?: boolean) => {
   return {
     ...(isDarkMode ? { prefix: '[Dark mode] ' } : {}),
-    waitForSelector: '.react-datepicker',
+    waitForSelector: '.delayed-take-percy-screenshot',
     queryParams: {
       props: JSON.stringify({ startOpen: true, ...args }),
       ...(isDarkMode ? { colormode: 'dark' } : {}),
