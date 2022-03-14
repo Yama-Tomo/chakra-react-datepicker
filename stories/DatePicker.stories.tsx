@@ -77,9 +77,13 @@ const percyArgs = (args: Record<string, unknown>, isDarkMode?: boolean) => {
 };
 
 type Story = ComponentStoryObj<typeof OriginalDatePicker>;
-export const BasicUsage: Story = {
+const baseStory: Story = {
   render: DatePicker,
   args: argsFromQs,
+};
+
+export const BasicUsage: Story = {
+  ...baseStory,
   parameters: {
     percy: {
       ...percyArgs({}),
@@ -89,7 +93,7 @@ export const BasicUsage: Story = {
 };
 
 export const WithRootProps: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     rootProps: {
       w: '200px',
@@ -98,7 +102,7 @@ export const WithRootProps: Story = {
       borderWidth: 1,
       borderStyle: 'solid',
     },
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -108,10 +112,10 @@ export const WithRootProps: Story = {
 };
 
 export const WithDatePickerSize: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     datePickerSize: 'xs',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -128,18 +132,18 @@ export const WithDatePickerSize: Story = {
 };
 
 export const WithResponsiveSize: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     datePickerSize: { base: 'xs', md: 'md', xl: 'xl' },
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
 };
 
 export const WithDatePickerColorScheme: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     datePickerColorSchema: 'red',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -150,18 +154,18 @@ export const WithDatePickerColorScheme: Story = {
 };
 
 export const WithInputProps: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     inputProps: {
       size: 'sm',
       variant: 'filled',
     },
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
 };
 
 export const WithExtendDatePickerTheme: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     extendDatePickerTheme(colorMode, theme) {
       if (colorMode === 'light') {
@@ -170,7 +174,7 @@ export const WithExtendDatePickerTheme: Story = {
 
       return { ...theme, header: 'teal.600', outsideDay: 'red.600' };
     },
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -192,7 +196,7 @@ export const WithPopoverPlacement: Story = {
   args: {
     rootProps: { w: 500 },
     popperPlacement: 'top-end',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -203,18 +207,18 @@ export const WithPopoverPlacement: Story = {
 };
 
 export const Disabled: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     disabled: true,
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
 };
 
 export const WithClearButton: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     isClearable: true,
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -230,11 +234,11 @@ export const WithClearButton: Story = {
 };
 
 export const WithTimeSelect: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     showTimeSelect: true,
     dateFormat: 'MM/dd/yyyy h:mm aa',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -245,12 +249,12 @@ export const WithTimeSelect: Story = {
 };
 
 export const WithTimeInput: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     showTimeInput: true,
     customTimeInput: <Input type={'time'} />,
     dateFormat: 'MM/dd/yyyy h:mm aa',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -261,9 +265,9 @@ export const WithTimeInput: Story = {
 };
 
 export const WithYearAndMonthPicker: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
-    ...BasicUsage.args,
+    ...baseStory.args,
     showMonthDropdown: true,
     showYearDropdown: true,
   },
@@ -276,10 +280,10 @@ export const WithYearAndMonthPicker: Story = {
 };
 
 export const WithPortal: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     withPortal: true,
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -296,10 +300,10 @@ const addDays = (add: number) => {
 };
 
 export const ExcludeDays: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     excludeDates: [addDays(1), addDays(2), addDays(3)],
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -309,20 +313,20 @@ export const ExcludeDays: Story = {
 };
 
 export const RangeDays: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     selectsRange: true,
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
 };
 
 export const Invalid: Story = {
-  ...BasicUsage,
+  ...baseStory,
   args: {
     inputProps: {
       isInvalid: true,
     },
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
@@ -340,7 +344,7 @@ export const InvalidWithFormControl: Story = {
     </FormControl>
   ),
   args: {
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
 };
 
@@ -372,7 +376,7 @@ export const WithLeftIcons: Story = {
     isClearable: true,
     excludeDates: [addDays(1), addDays(2), addDays(3)],
     dateFormat: 'MM/dd/yyyy h:mm aa',
-    ...BasicUsage.args,
+    ...baseStory.args,
   },
   parameters: {
     percy: {
